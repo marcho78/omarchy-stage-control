@@ -142,6 +142,7 @@ Item {
   onRegistrationKeyChanged: scheduleRegister()
 
   function scheduleRegister() {
+    bindReadRetries = 0
     if (hyprIntegration && settings) registerTimer.restart()
   }
 
@@ -149,6 +150,16 @@ Item {
     id: registerTimer
     // Long enough for a hot-reloaded predecessor's cleanup to land first.
     interval: 350
+    onTriggered: root.register()
+  }
+
+  // If Hyprland's bindings couldn't be read, no shortcut was bound; try a few
+  // more times (say Hyprland was still starting), then leave it to the next
+  // config reload or settings change.
+  property int bindReadRetries: 0
+  Timer {
+    id: bindRetryTimer
+    interval: 3000
     onTriggered: root.register()
   }
 
@@ -166,8 +177,16 @@ Item {
     maxBytes: 512 * 1024
     timeoutMs: 4000
     onFinished: function(ok, output) {
-      var existing = []
-      try { existing = JSON.parse(output) } catch (e) { existing = [] }
+      // Unreadable (failed, timed out, too long): checkBinds then binds nothing.
+      var existing = null
+      if (ok) {
+        try { existing = JSON.parse(output) } catch (e) { existing = null }
+      }
+      if (Array.isArray(existing)) root.bindReadRetries = 0
+      else if (root.bindReadRetries < 3) {
+        root.bindReadRetries++
+        bindRetryTimer.restart()
+      }
       var checked = Settings.checkBinds(Settings.wantedBinds(root.settings), existing)
       root.takenBinds = checked.taken
       var options = Settings.hyprOptions(root.settings, checked.free)
@@ -351,7 +370,7 @@ Item {
   }
 
   function refreshWallpaper() {
-    wallpaperRun.start(["/usr/bin/readlink", "-f", home + "/.local/state/omarchy/current/background"])
+    wallpaperRun.start(["/usr/bin/readlink", "-f", "--", home + "/.local/state/omarchy/current/background"])
   }
 
   // ---- desktops kept while empty ------------------------------------------------------

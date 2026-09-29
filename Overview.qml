@@ -257,6 +257,7 @@ PanelWindow {
         if (!item || !item.hasContent) return
       }
       if (!screenGhost.hasContent) return
+      if (wallpaper.status === Image.Loading) return
       win.service.markReady(win.screenName)
     }
   }
@@ -400,11 +401,15 @@ PanelWindow {
       id: backdrop
       anchors.fill: parent
 
+      // Loaded the way Omarchy's own background loads the same file: off the
+      // shell's main thread (so a slow or never-ending file can't stall the
+      // shell) and from the shared image cache.
       Image {
         id: wallpaper
         anchors.fill: parent
         source: win.service ? win.service.wallpaperUrl : ""
         fillMode: Image.PreserveAspectCrop
+        asynchronous: true
         cache: true
         smooth: true
       }

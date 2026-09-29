@@ -169,7 +169,8 @@ Stage Control or take its icon out of the bar, so your settings go with it.
 | `speed` | `100` | 50–200 (%) |
 
 A shortcut another binding already uses is left alone, and the settings window
-says which. Hot corners take the clicks on their last two pixels, so leave
+says which. If Hyprland's bindings can't be read to check, no shortcut is bound
+until they can (Stage Control tries again a few times). Hot corners take the clicks on their last two pixels, so leave
 empty any corner you click in (like the Omarchy menu, top left).
 
 Mission Control uses SF Pro when it's installed and otherwise the closest sans
@@ -242,7 +243,8 @@ hands every plugin. That copy is checked before use: settings against
 at most 64 whole desktop numbers, desktop names as at most 128 names of at most
 32 characters, with control, line-break and text-direction characters removed.
 The wallpaper is loaded as an image, the same file Omarchy's own background
-shows.
+shows and in the same way: off the shell's main thread, so a file that never
+finishes loading can't stall the shell.
 
 **Hyprland's events.** Stage Control acts only on its own
 `marcho78.stage-control|…` messages (160 characters at most) and on Hyprland's
@@ -261,8 +263,8 @@ desktop, what you type goes to its name and nowhere else.
 
 **Your configuration.** Stage Control never edits your Hyprland config or any
 other file you own. A shortcut you already use for something else is left
-alone, and disabling Stage Control takes its gesture, shortcuts and rules back
-out of Hyprland.
+alone (and when your bindings can't be read, none is bound), and disabling
+Stage Control takes its gesture, shortcuts and rules back out of Hyprland.
 
 ## Development
 

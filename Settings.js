@@ -158,11 +158,19 @@ function wantedBinds(settings) {
 var BIND_SUFFIX = " (Stage Control)"
 
 // Splits the wanted binds into those that are free and those some other bind
-// already uses. hyprBinds is the parsed output of `hyprctl -j binds`.
+// already uses. hyprBinds is the parsed output of `hyprctl -j binds`. When
+// that couldn't be read, no bind is known to be free, so none is: every one
+// comes back taken, marked unknown, rather than possibly doubling one of yours.
 function checkBinds(wanted, hyprBinds) {
   var taken = []
   var free = []
-  var existing = Array.isArray(hyprBinds) ? hyprBinds : []
+  if (!Array.isArray(hyprBinds)) {
+    wanted.forEach(function(bind) {
+      taken.push({ keys: bind.keys, event: bind.event, description: bind.description, usedBy: "", unknown: true })
+    })
+    return { free: free, taken: taken }
+  }
+  var existing = hyprBinds
   wanted.forEach(function(bind) {
     var clash = null
     for (var i = 0; i < existing.length; i++) {

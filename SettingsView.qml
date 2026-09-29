@@ -624,7 +624,9 @@ Item {
           model: root.ready ? root.service.takenBinds : []
           Caption {
             required property var modelData
-            text: modelData.keys + " is already " + (modelData.usedBy ? "used for “" + modelData.usedBy + "”" : "taken") + ", so Stage Control didn't bind it."
+            text: modelData.unknown
+              ? modelData.keys + " isn't bound: Stage Control couldn't read Hyprland's bindings to check that it's free."
+              : modelData.keys + " is already " + (modelData.usedBy ? "used for “" + modelData.usedBy + "”" : "taken") + ", so Stage Control didn't bind it."
             color: Color.urgent
             opacity: 1
           }

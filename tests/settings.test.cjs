@@ -118,6 +118,13 @@ let passed = 0;
   assert.equal(checked.taken[0].usedBy, "Word left");
   assert.equal(checked.free.length, wanted.length - 1);
   assert.deepEqual(plain(Settings.wantedBinds(Object.assign({}, settings, { shortcuts: false }))), []);
+  // Hyprland's binds unreadable: nothing is registered, everything reported.
+  for (const unreadable of [null, undefined, "not json", { binds: [] }]) {
+    const blind = plain(Settings.checkBinds(wanted, unreadable));
+    assert.equal(blind.free.length, 0, "no bind registered without knowing it's free");
+    assert.equal(blind.taken.length, wanted.length);
+    assert.ok(blind.taken.every((t) => t.unknown === true));
+  }
   passed++;
 }
 
