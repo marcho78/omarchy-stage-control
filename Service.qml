@@ -28,8 +28,8 @@ Item {
   property var shell: null
   property var manifest: null
 
-  // The dev harness (dev/harness.qml) turns Hyprland registration off and puts
-  // the overlays under the windows without taking the keyboard.
+  // A development harness can turn Hyprland registration off and put the
+  // overlays under the windows without taking the keyboard.
   property bool hyprIntegration: true
   property bool testMode: false
 
@@ -859,7 +859,7 @@ Item {
 
   // ---- hot corners and overlays ----------------------------------------------------------
 
-  // Each display's Overview, by display name (the dev harness grabs them).
+  // Each display's Overview, by display name.
   property var overviews: ({})
 
   function registerOverview(name, item) { overviews[name] = item }

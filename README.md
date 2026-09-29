@@ -270,20 +270,11 @@ Stage Control takes its gesture, shortcuts and rules back out of Hyprland.
 
 ```bash
 tests/run          # layout, desktop plans, settings, and the Hyprland module (needs node and lua)
-dev/run            # Stage Control in its own Quickshell, under your windows, keyboard-free
-dev/deploy         # copy this checkout into ~/.config/omarchy/plugins/marcho78.stage-control
 shaders/build      # recompile the glass shader (needs qt6-shadertools)
 ```
 
-`dev/harness.qml` lists the calls that drive the dev instance (`qs ipc -p
-$(dev/run --print) call stage-control-dev …`): open, freeze the animation at
-any point, simulate a swipe, hover, drag, close a window, and save a
-screenshot of any display.
-
 The Omarchy shell caches plugin QML, so after changing QML run
 `omarchy restart shell` (a symlinked checkout isn't watched at all).
-`dev/deploy` only writes a plugin folder it created itself, so it never
-touches a copy installed with `omarchy plugin add`.
 
 ## Known limitations
 

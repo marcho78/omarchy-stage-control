@@ -9,7 +9,7 @@ import "Settings.js" as Settings
 
 // What the Stage Control settings window shows: a live preview of Mission Control in
 // the current settings, a page list, and the pages. Panel.qml puts it in a
-// window; the dev harness renders it off to the side for screenshots.
+// window.
 Item {
   id: root
 
