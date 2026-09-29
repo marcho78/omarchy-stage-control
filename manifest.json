@@ -1,0 +1,27 @@
+{
+  "schemaVersion": 1,
+  "id": "marcho78.stage-control",
+  "name": "Stage Control",
+  "version": "1.0.0",
+  "author": "marcho78",
+  "license": "MIT",
+  "homepage": "https://github.com/marcho78/omarchy-stage-control",
+  "description": "macOS-style Mission Control for Omarchy. Swipe up with four fingers (or press Super+A) and every window on your desktop spreads out as a live preview, following your fingers. Drag windows onto desktops in the Spaces bar, add, remove and reorder desktops, close windows, and swipe down for App Exposé. Liquid Glass styling, hot corners, and a settings window for gestures, shortcuts and looks.",
+  "kinds": [
+    "service",
+    "panel",
+    "bar-widget"
+  ],
+  "entryPoints": {
+    "service": "Service.qml",
+    "panel": "Panel.qml",
+    "barWidget": "BarWidget.qml"
+  },
+  "barWidget": {
+    "displayName": "Stage Control",
+    "description": "Mission Control. Click for settings, right-click for Mission Control, middle-click for App Exposé.",
+    "category": "Workspaces",
+    "allowMultiple": false,
+    "defaultSection": "right"
+  }
+}

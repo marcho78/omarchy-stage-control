@@ -1,0 +1,27 @@
+#!/bin/bash
+# Development only: runs Stage Control in its own Quickshell instance, next to the
+# Omarchy shell rather than inside it. See dev/harness.qml for what it can do.
+#
+#   dev/run            start it (Ctrl+C to stop)
+#   dev/run --print    print the config path to use with `qs ipc -p`
+set -euo pipefail
+
+plugin=$(cd "$(/usr/bin/dirname "$0")/.." && pwd)
+omarchy=/usr/share/omarchy
+work=${XDG_RUNTIME_DIR:?XDG_RUNTIME_DIR is not set}/marcho78-stage-control-dev
+
+# The harness imports the plugin as ./stage and Omarchy's shared components as
+# qs.Commons, the same way the Omarchy shell provides them. Everything lives in
+# this one folder under the runtime directory.
+/usr/bin/mkdir -p -m 700 "$work"
+/usr/bin/ln -sfn "$omarchy/shell/Commons" "$work/Commons"
+/usr/bin/ln -sfn "$omarchy/shell/Ui" "$work/Ui"
+/usr/bin/ln -sfn "$plugin" "$work/stage"
+/usr/bin/cp "$plugin/dev/harness.qml" "$work/shell.qml"
+
+if [[ ${1:-} == "--print" ]]; then
+  echo "$work/shell.qml"
+  exit 0
+fi
+
+exec /usr/bin/qs -p "$work/shell.qml"

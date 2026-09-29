@@ -1,0 +1,8 @@
+#!/bin/bash
+# Runs every test suite. Needs node and lua.
+set -euo pipefail
+cd "$(dirname "$0")/.."
+node tests/layout.test.cjs
+node tests/model.test.cjs
+node tests/settings.test.cjs
+lua tests/hypr.test.lua

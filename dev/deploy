@@ -1,0 +1,22 @@
+#!/bin/bash
+# Development only: copies this checkout into the Omarchy shell's plugin folder,
+# which the shell watches and reloads (a symlinked checkout isn't watched).
+# Users get Stage Control with `omarchy plugin add`, never this script.
+#
+# It only ever writes a folder it created itself (marked by .dev-deploy), so an
+# installed copy (a git checkout) or anything else there is left alone.
+set -euo pipefail
+
+plugin=$(cd "$(/usr/bin/dirname "$0")/.." && pwd)
+target=$HOME/.config/omarchy/plugins/marcho78.stage-control
+
+if [[ -e $target && ! -f $target/.dev-deploy ]]; then
+  echo "$target exists and wasn't made by dev/deploy; not touching it." >&2
+  echo "Remove the installed copy first: omarchy plugin remove marcho78.stage-control" >&2
+  exit 1
+fi
+
+/usr/bin/mkdir -p "$target"
+/usr/bin/touch "$target/.dev-deploy"
+/usr/bin/rsync -a --delete --exclude .git --exclude .dev-deploy --exclude dev --exclude tests --exclude screenshots "$plugin/" "$target/"
+echo "deployed to $target"
