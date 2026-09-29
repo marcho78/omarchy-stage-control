@@ -142,14 +142,14 @@ function wantedBinds(settings) {
     if (binds.some(function(bind) { return bind.modmask === shortcut.modmask && bind.key.toUpperCase() === shortcut.key.toUpperCase() })) return
     binds.push({ keys: shortcut.text, key: shortcut.key, modmask: shortcut.modmask, event: event, description: description })
   }
-  add(settings.missionControlKey, "toggle", "Mission Control")
+  add(settings.stageKey, "toggle", "Open the stage")
   add(settings.appWindowsKey, "expose", "Application windows")
   if (settings.macShortcuts) {
-    add("CTRL + UP", "toggle", "Mission Control")
+    add("CTRL + UP", "toggle", "Open the stage")
     add("CTRL + DOWN", "expose", "Application windows")
     add("CTRL + LEFT", "desktop-prev", "Move left a desktop")
     add("CTRL + RIGHT", "desktop-next", "Move right a desktop")
-    add("XF86LaunchA", "toggle", "Mission Control")
+    add("XF86LaunchA", "toggle", "Open the stage")
   }
   return binds
 }

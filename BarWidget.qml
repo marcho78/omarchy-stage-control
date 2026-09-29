@@ -2,7 +2,7 @@ import QtQuick
 import qs.Ui
 
 // Stage Control's icon in the Omarchy bar. Click for its settings, right-click
-// for Mission Control, middle-click for App Exposé.
+// to open the stage, middle-click for App Exposé.
 //
 // For Omarchy this icon is also Stage Control's on switch: a third-party plugin
 // is on while its entry is in the bar. To keep Stage Control but lose the icon,
@@ -26,7 +26,7 @@ BarWidget {
     bar: root.bar
     // Material Design "view dashboard": windows of different sizes, spread out.
     text: String.fromCodePoint(0xf056e)
-    tooltipText: "Stage Control · click for settings, right-click for Mission Control"
+    tooltipText: "Stage Control · click for settings, right-click to open the stage"
     onPressed: function(button) {
       if (!root.service) return
       if (button === Qt.RightButton) root.service.open("mission")

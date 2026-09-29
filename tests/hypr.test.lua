@@ -14,7 +14,7 @@ local options = {
   fingers = 5,
   desktopSwipe = 4,
   binds = {
-    { keys = "SUPER + A", event = "toggle", description = "Mission Control (Stage Control)" },
+    { keys = "SUPER + A", event = "toggle", description = "Open the stage (Stage Control)" },
     { keys = "SUPER + ALT + A", event = "expose", description = "Application windows (Stage Control)" },
   },
 }
@@ -57,9 +57,9 @@ check(fake.events[3] == "marcho78.stage-control|g|finish|1|0.00", "cancelled fin
 local binds = fake.active_binds()
 fake.events = {}
 for _, bind in ipairs(binds) do hl.dispatch(bind.dispatcher) end
-check(fake.events[1] == "marcho78.stage-control|toggle", "SUPER + A toggles Mission Control")
+check(fake.events[1] == "marcho78.stage-control|toggle", "SUPER + A toggles the stage")
 check(fake.events[2] == "marcho78.stage-control|expose", "SUPER + ALT + A opens App Exposé")
-check(binds[1].options.description == "Mission Control (Stage Control)", "description kept")
+check(binds[1].options.description == "Open the stage (Stage Control)", "description kept")
 
 -- Bad options are refused, one by one.
 local status = register({

@@ -2,10 +2,11 @@
 
 ![Stage Control](screenshots/cover.jpg)
 
-macOS-style Mission Control for Omarchy. Swipe up with four fingers and every
-window on your desktop spreads out with live previews, under a Spaces bar of
-your desktops. Drag windows between desktops, add, remove and reorder
-desktops, close windows, and swipe down for App Exposé.
+Organize your desktops from one view. Swipe up with four fingers (or press
+Super+A) and every window steps onto the stage as a live preview, under a bar
+of all your desktops with live thumbnails. Drag windows onto any desktop; add,
+remove, reorder and rename desktops, and keep empty ones until you remove them.
+Close windows, or swipe down for just the current app's windows.
 
 * **Follows your fingers.** The swipe is tracked 1:1, like macOS: windows fly
   out of their places as you move, and letting go finishes or cancels by how
@@ -26,41 +27,36 @@ desktops, close windows, and swipe down for App Exposé.
   bottom.
 * **Liquid Glass.** The Spaces bar, labels and buttons refract the wallpaper
   behind them, like macOS Tahoe. Or pick Frosted or Solid.
-* **Hot corners**, Mac keyboard shortcuts (Ctrl+↑, Ctrl+↓, Ctrl+←/→ and the
-  Mission Control key), and a settings window for gestures, shortcuts and looks.
+* **Hot corners**, Mac keyboard shortcuts (Ctrl+↑, Ctrl+↓, Ctrl+←/→ and F3 on
+  Mac keyboards), and a settings window for gestures, shortcuts and looks.
 * **An icon in the top bar:** click it for Stage Control's settings,
-  right-click for Mission Control, middle-click for App Exposé.
-* **Seamless.** When Mission Control opens it starts from an exact picture of
-  your screen: title bars and borders ride along with their windows, and the
-  bar slides away instead of blinking out.
+  right-click to open the stage, middle-click for App Exposé.
+* **Seamless.** When the stage opens it starts from an exact picture of your
+  screen: title bars and borders ride along with their windows, and the bar
+  slides away instead of blinking out.
 
 ## Screenshots
 
-**Mission Control:** every window on the desktop, under live thumbnails of
-your desktops.
+**The stage:** every window on the desktop, under live thumbnails of your
+desktops.
 
-![Mission Control, with live thumbnails of six desktops along the top](preview.png)
+![The stage, with live thumbnails of six desktops along the top](preview.png)
 
 **The Spaces bar at rest:** just your desktops' names, until you point at it
 or drag a window toward it.
 
-![Mission Control, with the desktops' names along the top](screenshots/spaces-bar.png)
+![The stage, with the desktops' names along the top](screenshots/spaces-bar.png)
 
-## Screenshots
+**Named desktops:** the Spaces bar open, with live thumbnails of every desktop,
+and the same desktops by name.
 
-**Mission Control with the Spaces bar open:** live thumbnails of every
-desktop, which you can rename.
+![The stage with live thumbnails of six desktops, two of them renamed](screenshots/Omarchy%20Stage%20%201.1.png)
 
-![Mission Control with live thumbnails of six desktops, two of them renamed](screenshots/Omarchy%20Stage%20%201.1.png)
+![The stage with the desktops' names along the top](screenshots/Omarchy%20State%201.2.png)
 
-**The Spaces bar at rest:** the same desktops by name.
+![The stage on another desktop, with the Spaces bar at rest](screenshots/Omarchy%20Stage%20Control%202.png)
 
-![Mission Control with the desktops' names along the top](screenshots/Omarchy%20State%201.2.png)
-
-![Mission Control on another desktop, with the Spaces bar at rest](screenshots/Omarchy%20Stage%20Control%202.png)
-
-**Settings:** Mission Control, trackpad, shortcuts, hot corners and
-appearance.
+**Settings:** the stage, trackpad, shortcuts, hot corners and appearance.
 
 ![Stage Control's settings window](screenshots/Omarchy%20Stage%20Settings.png)
 
@@ -70,9 +66,9 @@ appearance.
 
 Omarchy 4 (Quattro), which brings everything Stage Control uses: the Omarchy
 shell on Quickshell 0.3, and Hyprland 0.56 or newer with its Lua configuration
-(the Lua gesture API is what lets Mission Control follow your fingers).
-Nothing else to install. The swipe needs a touchpad: four fingers by default,
-or three or five in the settings.
+(the Lua gesture API is what lets the stage follow your fingers). Nothing else
+to install. The swipe needs a touchpad: four fingers by default, or three or
+five in the settings.
 
 ## Install
 
@@ -95,7 +91,7 @@ settings: the icon then takes no space.
 
 | To | Do |
 |---|---|
-| Open Mission Control | Swipe up with four fingers, press **Super+A**, or use a hot corner you've set up |
+| Open the stage | Swipe up with four fingers, press **Super+A**, or use a hot corner you've set up |
 | See the app's windows (App Exposé) | Swipe down with four fingers, or press **Super+Alt+A** |
 | Go to a window | Click it, or pick it with the arrow keys or Tab and press Return |
 | Go to a desktop | Click it in the Spaces bar, or press 1–9 |
@@ -121,7 +117,7 @@ remove one, and each name moves with the desktop it belongs to.
 ### From a terminal or your own bindings
 
 ```bash
-omarchy-shell stage-control toggle            # Mission Control (show / hide: open or close only)
+omarchy-shell stage-control toggle            # the stage (show / hide: open or close only)
 omarchy-shell stage-control expose            # the focused app's windows
 omarchy-shell stage-control exposeApp firefox # any app's windows, by window class
 omarchy-shell stage-control desktopNext       # next desktop (desktopPrevious: the one before)
@@ -135,12 +131,12 @@ omarchy-shell stage-control status
 
 ## Settings
 
-Open them from Stage Control's icon in the bar, with a right-click in Mission
-Control, or with `omarchy-shell stage-control settings`. They apply
-immediately and are saved on Stage Control's entry in
-`~/.config/omarchy/shell.json`, keeping only what differs from the defaults in
-`Defaults.js`. That entry is also the one Omarchy removes when you disable
-Stage Control or take its icon out of the bar, so your settings go with it.
+Open them from Stage Control's icon in the bar, with a right-click on the
+stage, or with `omarchy-shell stage-control settings`. They apply immediately
+and are saved on Stage Control's entry in `~/.config/omarchy/shell.json`,
+keeping only what differs from the defaults in `Defaults.js`. That entry is
+also the one Omarchy removes when you disable Stage Control or take its icon
+out of the bar, so your settings go with it.
 
 | Setting | Default | Values |
 |---|---|---|
@@ -149,10 +145,10 @@ Stage Control or take its icon out of the bar, so your settings go with it.
 | `appExposeGesture` | `true` | swipe down for App Exposé |
 | `desktopSwipeFingers` | `0` | `0` (off), `3`, `4`, `5`: swipe sideways between desktops |
 | `shortcuts` | `true` | keyboard shortcuts on or off |
-| `missionControlKey` | `SUPER + A` | any modifiers and a key, or empty |
+| `stageKey` | `SUPER + A` | any modifiers and a key, or empty |
 | `appWindowsKey` | `SUPER + ALT + A` | any modifiers and a key, or empty |
-| `macShortcuts` | `false` | Ctrl+↑, Ctrl+↓, Ctrl+←/→ and the Mission Control key (F3 on Mac keyboards) |
-| `cornerTopLeft`, `cornerTopRight`, `cornerBottomLeft`, `cornerBottomRight` | `none` | `none`, `missionControl`, `appWindows`, `launchpad`, `menu`, `lock`, `screensaver` |
+| `macShortcuts` | `false` | Ctrl+↑, Ctrl+↓, Ctrl+←/→ and F3 on Mac keyboards |
+| `cornerTopLeft`, `cornerTopRight`, `cornerBottomLeft`, `cornerBottomRight` | `none` | `none`, `stage`, `appWindows`, `launchpad`, `menu`, `lock`, `screensaver` |
 | `groupByApp` | `false` | group windows by application |
 | `windowTitles` | `hover` | `hover`, `always` (on hover when grouped by app), `never` |
 | `appIcons` | `true` | app icons on windows |
@@ -170,29 +166,30 @@ Stage Control or take its icon out of the bar, so your settings go with it.
 
 A shortcut another binding already uses is left alone, and the settings window
 says which. If Hyprland's bindings can't be read to check, no shortcut is bound
-until they can (Stage Control tries again a few times). Hot corners take the clicks on their last two pixels, so leave
-empty any corner you click in (like the Omarchy menu, top left).
+until they can (Stage Control tries again a few times). Hot corners take the
+clicks on their last two pixels, so leave empty any corner you click in (like
+the Omarchy menu, top left).
 
-Mission Control uses SF Pro when it's installed and otherwise the closest sans
-serif on your system. The Inter font, if you have it, comes closest to macOS.
+The stage uses SF Pro when it's installed and otherwise the closest sans serif
+on your system. The Inter font, if you have it, comes closest to macOS.
 
 ## How it works
 
 Stage Control is QML and JavaScript plus a small Hyprland Lua file; nothing is
 built on your machine. It runs inside the Omarchy shell: a service that draws
-Mission Control as a full-screen layer on each display, with live window
-previews from Hyprland's window capture, and a settings panel.
+the stage as a full-screen layer on each display, with live window previews
+from Hyprland's window capture, and a settings panel.
 
 Hyprland's Lua config can report a trackpad gesture step by step, so
 `hypr/stage.lua` registers a live four-finger swipe that sends every step to
-the service over Hyprland's event socket, and the service moves Mission
-Control with it. The same file registers the shortcuts, a layer rule for Stage
-Control's surfaces, and a window rule that floats its settings window. The
-service runs it with `hyprctl eval` when the shell starts, after every
-Hyprland config reload (which clears runtime additions), and when you change
-settings; disabling Stage Control removes it all.
+the service over Hyprland's event socket, and the service moves the stage with
+it. The same file registers the shortcuts, a layer rule for Stage Control's
+surfaces, and a window rule that floats its settings window. The service runs
+it with `hyprctl eval` when the shell starts, after every Hyprland config
+reload (which clears runtime additions), and when you change settings;
+disabling Stage Control removes it all.
 
-Mission Control announces itself on Hyprland's event socket as
+The stage announces itself on Hyprland's event socket as
 `custom>>marcho78.stage-control|state|open` and `…|state|closed`, for other
 plugins (say, a dock that wants to stay up while it's open, as the macOS Dock
 does).
@@ -255,11 +252,11 @@ and desktop names, and messages from Hyprland, is plain text
 (`Text.PlainText`).
 
 **Window previews and the keyboard.** The live previews come from Hyprland's
-own window capture, only while Mission Control is on screen. They stay in
-memory: nothing is saved, recorded or sent anywhere. While it's open, Mission
-Control takes the keyboard (Esc, arrows, Tab, Return, 1–9, Ctrl+W) the way any
-full-screen overlay does, and gives it back when it closes. While you rename a
-desktop, what you type goes to its name and nowhere else.
+own window capture, only while the stage is on screen. They stay in memory:
+nothing is saved, recorded or sent anywhere. While it's open, the stage takes
+the keyboard (Esc, arrows, Tab, Return, 1–9, Ctrl+W) the way any full-screen
+overlay does, and gives it back when it closes. While you rename a desktop,
+what you type goes to its name and nowhere else.
 
 **Your configuration.** Stage Control never edits your Hyprland config or any
 other file you own. A shortcut you already use for something else is left
@@ -278,14 +275,14 @@ The Omarchy shell caches plugin QML, so after changing QML run
 
 ## Known limitations
 
-* Mission Control covers the bar and the dock while it's open; macOS keeps
-  its Dock visible. Stage Control announces itself on Hyprland's event socket
-  (see above), so a dock can choose to stay up.
-* Each display gets its own Mission Control, but a window can't be dragged to
-  another display's desktop.
+* The stage covers the bar and the dock while it's open; macOS keeps its Dock
+  visible. Stage Control announces itself on Hyprland's event socket (see
+  above), so a dock can choose to stay up.
+* Each display gets its own stage, but a window can't be dragged to another
+  display's desktop.
 * A hot corner takes the clicks on its last two pixels.
 * Title bars drawn by Hyprland (like Title Bars) aren't part of the live
-  previews; they fade out as Mission Control opens.
+  previews; they fade out as the stage opens.
 
 ## Uninstall
 

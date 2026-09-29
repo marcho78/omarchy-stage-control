@@ -1,6 +1,6 @@
 // Liquid Glass: a rounded pane that refracts what is behind it.
 //
-// The backdrop (Mission Control's wallpaper layer, shared by every pane) is
+// The backdrop (the stage's wallpaper layer, shared by every pane) is
 // sampled through the pane: frosted by reading a blurrier mip level, bent
 // inward near the rim like the edge of a thick lens, split slightly by color
 // right at the rim, tinted, and lit by a specular rim that is brightest where

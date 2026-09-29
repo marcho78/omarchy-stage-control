@@ -7,7 +7,7 @@ import qs.Commons
 import qs.Ui
 import "Settings.js" as Settings
 
-// What the Stage Control settings window shows: a live preview of Mission Control in
+// What the Stage Control settings window shows: a live preview of the stage in
 // the current settings, a page list, and the pages. Panel.qml puts it in a
 // window.
 Item {
@@ -29,7 +29,7 @@ Item {
   property bool resetConfirmOpen: false
 
   readonly property var pages: [
-    { id: "mission", label: "Mission Control", glyph: "󰕰" },
+    { id: "mission", label: "Stage", glyph: "󰕰" },
     { id: "gestures", label: "Trackpad", glyph: "󰟸" },
     { id: "keys", label: "Shortcuts", glyph: "󰌌" },
     { id: "corners", label: "Hot Corners", glyph: "󱂬" },
@@ -38,7 +38,7 @@ Item {
 
   readonly property var cornerActions: [
     { value: "none", label: "—" },
-    { value: "missionControl", label: "Mission Control" },
+    { value: "stage", label: "Open the stage" },
     { value: "appWindows", label: "Application Windows" },
     { value: "launchpad", label: "Apps (Launchpad)" },
     { value: "menu", label: "Omarchy Menu" },
@@ -182,7 +182,7 @@ Item {
   }
 
 
-  // ---- live preview: a small Mission Control in the current settings.
+  // ---- live preview: a small stage in the current settings.
   Item {
     id: hero
     width: parent.width
@@ -373,7 +373,7 @@ Item {
       background: Qt.rgba(0, 0, 0, 0.45)
       foreground: "white"
       iconText: "󰕰"
-      text: "Try Mission Control"
+      text: "Try the stage"
       enabled: root.ready
       onClicked: root.service.open("mission")
     }
@@ -471,7 +471,7 @@ Item {
         }
       }
 
-      // ---- Mission Control
+      // ---- the stage
       Column {
         visible: root.page === "mission"
         width: parent.width
@@ -480,7 +480,7 @@ Item {
         Toggle {
           width: parent.width
           label: "Show Stage Control in the top bar"
-          description: "Click the icon for these settings, right-click for Mission Control. Turned off, the icon takes no space; Stage Control keeps running."
+          description: "Click the icon for these settings, right-click to open the stage. Turned off, the icon takes no space; Stage Control keeps running."
           checked: root.settings.barIcon !== false
           onClicked: root.set("barIcon", root.settings.barIcon === false)
         }
@@ -549,7 +549,7 @@ Item {
 
         Caption {
           topPadding: 6
-          text: "In Mission Control: click a window to go to it, drag it onto a desktop to move it there (or onto + for a new desktop), "
+          text: "On the stage: click a window to go to it, drag it onto a desktop to move it there (or onto + for a new desktop), "
             + "drag desktops to reorder them, hover a desktop to remove it, hover a window and click × to close it. "
             + "Arrow keys pick a window, Return goes to it, Ctrl+W closes it, 1–9 jump to a desktop, "
             + "Ctrl+←/→ switch desktops, Esc leaves. Right-click the background for these settings."
@@ -562,7 +562,7 @@ Item {
         width: parent.width
         spacing: 10
 
-        SectionLabel { text: "Mission Control"; topPadding: 0 }
+        SectionLabel { text: "The stage"; topPadding: 0 }
         Caption { text: "Swipe up to open it, following your fingers, and down to close it." }
         ButtonGroup {
           options: [{ value: "0", label: "Off" }, { value: "3", label: "3 fingers" }, { value: "4", label: "4 fingers" }, { value: "5", label: "5 fingers" }]
@@ -589,7 +589,7 @@ Item {
         }
         Caption {
           visible: root.settings.desktopSwipeFingers !== 0 && root.settings.desktopSwipeFingers === root.settings.gestureFingers
-          text: "Mission Control swipes up and down and desktops swipe sideways, so the same fingers can do both."
+          text: "The stage opens and closes with an up or down swipe and desktops swipe sideways, so the same fingers can do both."
         }
       }
 
@@ -607,13 +607,13 @@ Item {
           onClicked: root.set("shortcuts", root.settings.shortcuts === false)
         }
 
-        ShortcutField { key: "missionControlKey"; label: "Mission Control"; enabled: root.settings.shortcuts !== false; opacity: enabled ? 1 : 0.5 }
+        ShortcutField { key: "stageKey"; label: "Open the stage"; enabled: root.settings.shortcuts !== false; opacity: enabled ? 1 : 0.5 }
         ShortcutField { key: "appWindowsKey"; label: "Application windows"; enabled: root.settings.shortcuts !== false; opacity: enabled ? 1 : 0.5 }
 
         Toggle {
           width: parent.width
           label: "Mac keyboard shortcuts"
-          description: "Ctrl+↑ Mission Control, Ctrl+↓ application windows, Ctrl+← and Ctrl+→ move between desktops, and the Mission Control key (F3). Ctrl+arrows jump by word in most Linux text fields, so this is off by default."
+          description: "Ctrl+↑ opens the stage, Ctrl+↓ application windows, Ctrl+← and Ctrl+→ move between desktops, and F3 on Mac keyboards opens the stage too. Ctrl+arrows jump by word in most Linux text fields, so this is off by default."
           checked: root.settings.macShortcuts === true
           enabled: root.settings.shortcuts !== false
           opacity: enabled ? 1 : 0.5
@@ -634,7 +634,7 @@ Item {
 
         SectionLabel { text: "From a terminal or your own bindings" }
         Caption {
-          text: "omarchy-shell stage-control toggle      Mission Control\n"
+          text: "omarchy-shell stage-control toggle      the stage\n"
             + "omarchy-shell stage-control expose      application windows\n"
             + "omarchy-shell stage-control exposeApp firefox\n"
             + "omarchy-shell stage-control settings    these settings"
@@ -765,7 +765,7 @@ Item {
         Toggle {
           width: parent.width
           label: "Reduce motion"
-          description: "Mission Control fades in and out instead of flying the windows around."
+          description: "The stage fades in and out instead of flying the windows around."
           checked: root.settings.reduceMotion === true
           onClicked: root.set("reduceMotion", root.settings.reduceMotion !== true)
         }

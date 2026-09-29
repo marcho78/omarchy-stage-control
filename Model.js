@@ -1,4 +1,4 @@
-// Model.js - what Hyprland has, in the shape Mission Control needs.
+// Model.js - what Hyprland has, in the shape the stage needs.
 //
 // The service reads one snapshot per opening with
 //   hyprctl -j --batch "clients; monitors; workspaces"

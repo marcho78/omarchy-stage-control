@@ -2,7 +2,7 @@ import QtQuick
 import Quickshell
 import "Layout.js" as Layout
 
-// The Spaces bar along the top of Mission Control. Like macOS it shows the
+// The Spaces bar along the top of the stage. Like macOS it shows the
 // desktops' names and expands into thumbnails when the pointer comes up to it
 // or a window is dragged toward it. The "+" on the right adds a desktop; drop
 // a window on it to put the window on a new desktop. Right-click a desktop to
@@ -37,7 +37,7 @@ Item {
 
   width: overview ? overview.width : 0
   height: collapsedHeight + (expandedHeight - collapsedHeight) * expand
-  // Slides down from the top edge as Mission Control opens.
+  // Slides down from the top edge as the stage opens.
   y: -Math.round(height * 0.7 * (1 - e))
   opacity: e
 

@@ -85,8 +85,8 @@ return function(options)
   })
   if placed and window_rule then state.rules[#state.rules + 1] = window_rule else problem("window rule: " .. tostring(window_rule)) end
 
-  -- Mission Control follows the fingers: every step of a vertical swipe goes to
-  -- the service, which decides between Mission Control and App Exposé.
+  -- The stage follows the fingers: every step of a vertical swipe goes to
+  -- the service, which decides between the stage and App Exposé.
   local fingers = whole(options.fingers, 3, 5)
   if fingers > 0 then
     local spec = {

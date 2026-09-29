@@ -49,12 +49,12 @@ let passed = 0;
     desktopSwipeFingers: 7,          // not a choice -> default
     dim: 500,                        // clamped
     speed: 60,
-    missionControlKey: "super+tab",  // canonicalized
+    stageKey: "super+tab",  // canonicalized
     appWindowsKey: "SUPER + ;",      // invalid -> default
     highlight: "#FF00AA",            // custom color, lowercased
     glass: "chrome",                 // not a choice
     groupByApp: "yes",               // wrong type
-    cornerTopLeft: "missionControl",
+    cornerTopLeft: "stage",
     unknown: true,                   // dropped
   };
   const merged = plain(Settings.merge(defaults, user, schema));
@@ -62,15 +62,15 @@ let passed = 0;
   assert.equal(merged.desktopSwipeFingers, 0);
   assert.equal(merged.dim, 80);
   assert.equal(merged.speed, 60);
-  assert.equal(merged.missionControlKey, "SUPER + TAB");
+  assert.equal(merged.stageKey, "SUPER + TAB");
   assert.equal(merged.appWindowsKey, defaults.appWindowsKey);
   assert.equal(merged.highlight, "#ff00aa");
   assert.equal(merged.glass, defaults.glass);
   assert.equal(merged.groupByApp, false);
-  assert.equal(merged.cornerTopLeft, "missionControl");
+  assert.equal(merged.cornerTopLeft, "stage");
   assert.equal(merged.unknown, undefined);
   assert.deepEqual(plain(Settings.overrides(defaults, merged)), {
-    gestureFingers: 3, dim: 80, speed: 60, missionControlKey: "SUPER + TAB", highlight: "#ff00aa", cornerTopLeft: "missionControl",
+    gestureFingers: 3, dim: 80, speed: 60, stageKey: "SUPER + TAB", highlight: "#ff00aa", cornerTopLeft: "stage",
   });
   assert.equal(Settings.highlightColor(merged, "#123456"), "#ff00aa");
   assert.equal(Settings.highlightColor(defaults, "#123456"), "#123456", "accent follows the theme");
@@ -109,7 +109,7 @@ let passed = 0;
   const hyprBinds = [
     { modmask: 64, key: "UP", description: "Focus on above window" },
     { modmask: 4, key: "LEFT", description: "Word left" },
-    { modmask: 4, key: "UP", description: "Mission Control (Stage Control)" },   // our own, from before
+    { modmask: 4, key: "UP", description: "Open the stage (Stage Control)" },   // our own, from before
     { modmask: 4, key: "DOWN", description: "", submap: "resize" },         // other submap
     { modmask: 4, key: "RIGHT", mouse: true },
   ];
@@ -165,7 +165,7 @@ let passed = 0;
   const out = execFileSync("lua", ["-e", script], { cwd: root, encoding: "utf8" }).trim().split("\n");
   assert.equal(out[0], "status ok");
   const binds = out.filter((l) => l.startsWith("bind ")).sort();
-  assert.ok(binds.includes("bind SUPER + A => marcho78.stage-control|toggle (Mission Control (Stage Control))"), binds.join("\n"));
+  assert.ok(binds.includes("bind SUPER + A => marcho78.stage-control|toggle (Open the stage (Stage Control))"), binds.join("\n"));
   assert.ok(binds.includes("bind CTRL + RIGHT => marcho78.stage-control|desktop-next (Move right a desktop (Stage Control))"));
   assert.equal(binds.length, 7);
   const events = out.filter((l) => l.startsWith("event ")).map((l) => plain(Settings.parseEvent(l.slice(6))));

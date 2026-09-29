@@ -3,7 +3,7 @@ import Quickshell
 import qs.Commons
 
 // The Stage Control settings window. Open it with
-// `omarchy-shell stage-control settings`, a right-click in Mission Control, or
+// `omarchy-shell stage-control settings`, a right-click on the stage, or
 //   omarchy-shell shell summon marcho78.stage-control '{}'
 //
 // Settings live on Stage Control's entry in ~/.config/omarchy/shell.json (only

@@ -222,7 +222,7 @@ Item {
     }
 
     // The name, editable, while renaming. Enter keeps it, Esc cancels; the
-    // keys stop here, so Mission Control's own (Esc closes it) never see them.
+    // keys stop here, so the stage's own (Esc closes it) never see them.
     TextInput {
       id: nameInput
       anchors.centerIn: parent

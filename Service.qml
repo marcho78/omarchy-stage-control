@@ -7,17 +7,17 @@ import "Defaults.js" as Defaults
 import "Settings.js" as Settings
 import "Model.js" as Model
 
-// Stage Control: macOS-style Mission Control for Omarchy.
+// Stage Control: organize your Omarchy desktops from one view, the stage.
 //
 // This service is the engine. It keeps Stage Control's input registered with Hyprland
 // (hypr/stage.lua, run with `hyprctl eval`), listens for the events that input
-// sends, follows trackpad swipes, reads Hyprland's state when Mission Control
+// sends, follows trackpad swipes, reads Hyprland's state when the stage
 // opens, and carries out what you do there: focusing windows, switching,
 // adding, removing and reordering desktops, and moving windows between them.
-// Overview.qml draws Mission Control on each display; Panel.qml is the
+// Overview.qml draws the stage on each display; Panel.qml is the
 // settings window.
 //
-//   omarchy-shell stage-control toggle     Mission Control
+//   omarchy-shell stage-control toggle     the stage
 //   omarchy-shell stage-control expose     App Exposé (the focused app's windows)
 //   omarchy-shell stage-control settings   settings
 Item {
@@ -51,7 +51,7 @@ Item {
   readonly property var settings: defaults ? Settings.merge(defaults, user, schema) : null
   readonly property color highlight: settings ? Settings.highlightColor(settings, String(Color.accent)) : Color.accent
 
-  // Mission Control's text is set in the macOS system font when it's
+  // The stage's text is set in the macOS system font when it's
   // installed, else the closest sans serif on the system.
   readonly property string uiFont: {
     var families = Qt.fontFamilies()
@@ -137,7 +137,7 @@ Item {
 
   readonly property string registrationKey: settings ? JSON.stringify([
     settings.gestureFingers, settings.desktopSwipeFingers, settings.shortcuts,
-    settings.missionControlKey, settings.appWindowsKey, settings.macShortcuts
+    settings.stageKey, settings.appWindowsKey, settings.macShortcuts
   ]) : ""
   onRegistrationKeyChanged: scheduleRegister()
 
@@ -280,7 +280,7 @@ Item {
     }
   }
 
-  // While Mission Control is open it follows what Hyprland does.
+  // While the stage is open it follows what Hyprland does.
   Timer {
     id: followTimer
     interval: 60
@@ -352,7 +352,7 @@ Item {
 
   // ---- wallpaper -------------------------------------------------------------------
   //
-  // Resolved the way Omarchy's background does it, so Mission Control shows the
+  // Resolved the way Omarchy's background does it, so the stage shows the
   // very image the desktop has (straight from the shell's image cache).
 
   property string wallpaper: ""
@@ -558,7 +558,7 @@ Item {
   }
 
   function runCornerAction(action) {
-    if (action === "missionControl") open("mission")
+    if (action === "stage") open("mission")
     else if (action === "appWindows") open("expose")
     else if (action === "launchpad") Quickshell.execDetached(["/usr/bin/omarchy", "menu", "toggle", "apps"])
     else if (action === "menu") Quickshell.execDetached(["/usr/bin/omarchy", "menu", "toggle"])
@@ -569,7 +569,7 @@ Item {
   // ---- opening and closing -----------------------------------------------------------
   //
   // progress runs from 0 (the desktop, every window where it really is) to 1
-  // (Mission Control). Trackpad swipes set it directly; everything else
+  // (the stage). Trackpad swipes set it directly; everything else
   // animates it.
 
   property string mode: ""            // "", "mission" or "expose"
@@ -585,7 +585,7 @@ Item {
   readonly property bool interactive: shown && revealed && !tracking && !closing
   readonly property real speedFactor: settings ? settings.speed / 100 : 1
 
-  // Other plugins can follow Mission Control on Hyprland's event socket:
+  // Other plugins can follow the stage on Hyprland's event socket:
   // custom>>marcho78.stage-control|state|open and …|state|closed.
   onShownChanged: {
     if (hyprIntegration) Hyprland.dispatch('hl.dsp.event("' + Settings.EVENT_PREFIX + 'state|' + (shown ? "open" : "closed") + '")')
@@ -752,7 +752,7 @@ Item {
   readonly property real swipeDistance: 240
   property real swipeTravel: 0
   property string swipeIntent: ""     // "", "open", "close" or "ignore"
-  property int swipeDirection: 0      // sign of a swipe toward "open": -1 up (Mission Control), +1 down (App Exposé)
+  property int swipeDirection: 0      // sign of a swipe toward "open": -1 up (the stage), +1 down (App Exposé)
   property real swipeOrigin: 0        // progress when the fingers took over
   property var swipeSamples: []
   property string lastGestureKey: ""
@@ -804,7 +804,7 @@ Item {
       else swipeIntent = "ignore"
       return
     }
-    // Mission Control opens upward and App Exposé downward; while one is open
+    // The stage opens upward and App Exposé downward; while one is open
     // (or on its way in or out), the fingers take it over from where it is.
     var direction = mode === "expose" ? 1 : -1
     var towardOpen = (up ? -1 : 1) === direction

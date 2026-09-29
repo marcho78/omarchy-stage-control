@@ -7,7 +7,7 @@ import qs.Commons
 import "Layout.js" as Layout
 import "Model.js" as Model
 
-// Mission Control on one display: a full-screen layer over everything. At
+// The stage on one display: a full-screen layer over everything. At
 // progress 0 it looks exactly like the desktop (the wallpaper, every window
 // where it is, the bar); as progress goes to 1 the windows fly into the
 // spread, the wallpaper blurs and dims, and the Spaces bar slides in.
@@ -396,7 +396,7 @@ PanelWindow {
     // Nothing shows until the previews are ready; then it matches the screen.
     opacity: win.service && win.service.revealed ? (win.reduceMotion ? win.p : 1) : 0
 
-    // The wallpaper, blurring and dimming as Mission Control opens.
+    // The wallpaper, blurring and dimming as the stage opens.
     Item {
       id: backdrop
       anchors.fill: parent
@@ -448,7 +448,7 @@ PanelWindow {
     // The screen as it was when the overlay appeared. The bar (and anything
     // else Hyprland reserves room for) slides away from it, and each window's
     // title bar and border ride along with the window and fade, so nothing
-    // blinks out when Mission Control takes over the screen.
+    // blinks out when the stage takes over the screen.
     ScreencopyView {
       id: screenGhost
       readonly property var reserved: win.monitor ? win.monitor.reserved : null

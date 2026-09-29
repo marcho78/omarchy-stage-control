@@ -1,4 +1,4 @@
-// Layout.js - where each window goes in Mission Control.
+// Layout.js - where each window goes on the stage.
 //
 // Windows are placed in rows so none overlap, all scaled by the same factor
 // (so they keep their relative sizes, like macOS) and as large as the area

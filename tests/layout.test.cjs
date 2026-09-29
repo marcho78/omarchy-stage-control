@@ -1,4 +1,4 @@
-// Checks the Mission Control layout: nothing overlaps, everything fits, sizes
+// Checks the stage layout: nothing overlaps, everything fits, sizes
 // stay proportional, and on-screen order survives.
 // Usage (from the plugin directory): node tests/layout.test.cjs
 

@@ -5,7 +5,7 @@ import Quickshell.Wayland
 import Quickshell.Widgets
 import Quickshell.Hyprland
 
-// One window in Mission Control: a live preview that travels from where the
+// One window on the stage: a live preview that travels from where the
 // window really is (progress 0) to its place in the spread (progress 1), with
 // the macOS hover outline, its title, and its app icon. Drag it onto a desktop
 // in the Spaces bar; click it to go to it; its × (or a middle-click) closes it.
@@ -19,7 +19,7 @@ Item {
   readonly property var info: overview && overview.tileData ? (overview.tileData[modelData] || null) : null
   readonly property real p: service ? service.progress : 0
   readonly property bool reduceMotion: !!(service && service.settings && service.settings.reduceMotion)
-  // With reduced motion the windows wait in their Mission Control spots and
+  // With reduced motion the windows wait in their spots on the stage and
   // the whole overlay fades in and out instead.
   readonly property real e: reduceMotion ? 1 : p
   readonly property bool onScreen: !!info && info.onScreen
