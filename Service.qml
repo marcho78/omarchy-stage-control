@@ -199,8 +199,9 @@ Item {
     maxBytes: 16 * 1024
     timeoutMs: 4000
     onFinished: function(ok, output) {
-      var text = String(output || "").trim()
-      root.hyprStatus = ok && (text === "" || text === "ok") ? "ok" : (text || "Hyprland didn't answer")
+      // hypr/stage.lua raises what didn't register; hyprctl prints it as "error: …".
+      var text = String(output || "").trim().replace(/^error:\s*/i, "")
+      root.hyprStatus = ok && (text === "" || text === "ok") ? "ok" : (text.slice(0, 600) || "Hyprland didn't answer")
       if (root.hyprStatus !== "ok") console.warn("Stage Control: registering with Hyprland:", root.hyprStatus)
       root.registering = false
       if (root.registerAgain) {

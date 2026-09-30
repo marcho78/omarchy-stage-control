@@ -61,8 +61,9 @@ check(fake.events[1] == "marcho78.stage-control|toggle", "SUPER + A toggles the 
 check(fake.events[2] == "marcho78.stage-control|expose", "SUPER + ALT + A opens App Exposé")
 check(binds[1].options.description == "Open the stage (Stage Control)", "description kept")
 
--- Bad options are refused, one by one.
-local status = register({
+-- Bad options are refused, one by one, and what was refused is raised as an
+-- error (the only thing `hyprctl eval` passes on besides "ok").
+local ok, status = pcall(register, {
   fingers = 7,
   desktopSwipe = "4",
   binds = {
@@ -77,6 +78,7 @@ check(fake.gesture(7, "vertical") == nil, "seven fingers refused")
 check(fake.gesture(4, "horizontal") ~= nil, "numeric string for desktop swipe still accepted by tonumber")
 check(#fake.active_binds() == 1, "only the valid shortcut registered")
 check(fake.active_binds()[1].options.description == "Stage Control", "unsafe description replaced")
+check(not ok, "problems are raised")
 check(status:find("invalid keys", 1, true) ~= nil, "reports invalid keys")
 check(status:find("unknown action", 1, true) ~= nil, "reports unknown action")
 check(not status:find("\n", 1, true), "status is one line")
@@ -87,9 +89,17 @@ check(next(fake.gestures) == nil, "no gestures left")
 check(#fake.active_binds() == 0, "no shortcuts left")
 check(fake.enabled_rules() == 2, "only the two rules")
 
+-- A key Hyprland doesn't know: turned down without an error, still reported.
+local realBind = hl.bind
+hl.bind = function() return nil end
+ok, status = pcall(register, { fingers = 0, desktopSwipe = 0, binds = { { keys = "SUPER + SPCE", event = "toggle" } } })
+hl.bind = realBind
+check(not ok and status:find("SUPER + SPCE", 1, true) ~= nil and status:find("didn't take it", 1, true) ~= nil, "reports the refused key: " .. tostring(status))
+
 -- A gesture that is already taken (by the user's own config) is reported, not fatal.
 hl.gesture({ fingers = 3, direction = "vertical", action = "workspace" })
-status = register({ fingers = 3, desktopSwipe = 0, binds = {} })
+ok, status = pcall(register, { fingers = 3, desktopSwipe = 0, binds = {} })
+check(not ok, "raised")
 check(status:find("3-finger swipe", 1, true) ~= nil, "reports the taken gesture")
 check(fake.gesture(3, "vertical").action == "workspace", "the user's gesture is untouched")
 check(register({ fingers = 0, desktopSwipe = 0, binds = {} }) == "ok", "cleanup doesn't unset the user's gesture")

@@ -243,7 +243,8 @@ function luaLiteral(value) {
 }
 
 // The code `hyprctl eval` runs: load hypr/stage.lua from the plugin and
-// register with the given options. Returns the module's status string.
+// register with the given options. hyprctl prints "ok", or "error: …" naming
+// what didn't register (and fails).
 function hyprRegistration(moduleFile, options) {
   return "return dofile(" + luaString(moduleFile) + ")(" + luaLiteral(options) + ")"
 }

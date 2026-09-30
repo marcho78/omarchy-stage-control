@@ -13,6 +13,10 @@
 -- Nothing here runs programs or reads or writes files. Your Hyprland config is
 -- never edited: a config reload drops all of this, and the service registers
 -- again.
+--
+-- Anything that didn't register is raised as an error, after everything that
+-- could register has: `hyprctl eval` shows only "ok" for a returned value, but
+-- prints an error and fails, so the settings window can say what went wrong.
 
 local PREFIX = "marcho78.stage-control|"
 local EVENTS = { toggle = true, expose = true, ["desktop-prev"] = true, ["desktop-next"] = true }
@@ -133,11 +137,12 @@ return function(options)
       if done and handle then
         state.binds[#state.binds + 1] = handle
       else
-        problem(keys .. ": " .. tostring(handle))
+        -- Hyprland turns down a key it doesn't know without an error.
+        problem(keys .. ": " .. (done and "Hyprland didn't take it (is the key name right?)" or tostring(handle)))
       end
     end
   end
 
   if #state.problems == 0 then return "ok" end
-  return "ok|" .. table.concat(state.problems, ";")
+  error(table.concat(state.problems, "; "), 0)
 end
